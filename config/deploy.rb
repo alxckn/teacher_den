@@ -9,6 +9,7 @@ set :rvm_ruby_version, "2.4"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+set :branch, ENV["BRANCH"] unless ENV["BRANCH"].nil?
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/srv/#{fetch(:application)}"
