@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: global_vars
+#
+#  id    :integer          not null, primary key
+#  key   :string
+#  value :string
+#
+
 class GlobalVar < ApplicationRecord
   validates_presence_of :key, :value
 
