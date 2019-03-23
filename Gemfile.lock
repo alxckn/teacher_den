@@ -91,6 +91,7 @@ GEM
       aws-sdk-core (= 2.11.197)
     aws-sigv4 (1.0.3)
     bcrypt (3.1.12)
+    betterlorem (0.1.2)
     bindex (0.5.0)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
@@ -545,6 +546,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   backup!
+  betterlorem
   bootstrap-sass (~> 3.3.6)
   byebug
   capistrano
@@ -577,7 +579,7 @@ DEPENDENCIES
   whenever
 
 RUBY VERSION
-   ruby 2.4.4p296
+   ruby 2.6.2p47
 
 BUNDLED WITH
-   1.16.4
+   1.17.2
