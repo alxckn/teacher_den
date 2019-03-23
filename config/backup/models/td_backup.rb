@@ -66,4 +66,17 @@ Model.new(:td_backup, 'Description for td_backup') do
   #
   compress_with Gzip
 
+  after do |exit_status|
+    if Rails.configuration.try(:backup_with_rclone) && exit_status < 2 # complete success or success with warnings
+      Logger.info "Uploading backups to the cloud"
+
+      backed_up_path = self.storages
+                         .find { |s| s.send(:storage_name) == "Storage::Local" }
+                         .send(:remote_path)
+
+      # execute rclone sync using `backed_up_path`
+    else
+      Logger.warn "Not uploading to the cloud: Rails is not configured or there was a previous error in the backup process"
+    end
+  end
 end

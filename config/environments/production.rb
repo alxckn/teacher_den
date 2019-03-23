@@ -96,4 +96,6 @@ Rails.application.configure do
     authentication: :plain,
     enable_starttls_auto: true
   }
+
+  config.backup_with_rclone = true
 end
