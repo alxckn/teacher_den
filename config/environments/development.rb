@@ -65,5 +65,5 @@ Rails.application.configure do
   #   enable_starttls_auto: true
   # }
 
-  config.backup_with_rclone = false
+  config.backup_with_rclone = true
 end

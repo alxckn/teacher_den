@@ -74,7 +74,12 @@ Model.new(:td_backup, 'Description for td_backup') do
                          .find { |s| s.send(:storage_name) == "Storage::Local" }
                          .send(:remote_path)
 
-      # execute rclone sync using `backed_up_path`
+      # execute rclone to sync to the cloud
+      command = "#{ENV["RCLONE_BIN_PATH"]} copy #{backed_up_path} #{ENV["RCLONE_REMOTE_NAME"]}:#{ENV["RCLONE_REMOTE_PATH"]}"
+      Logger.warn "Uploading using command: '#{command}'"
+      result = system command
+
+      result ? Logger.info("Upload command successful") : Logger.error("Command execution failed")
     else
       Logger.warn "Not uploading to the cloud: Rails is not configured or there was a previous error in the backup process"
     end
