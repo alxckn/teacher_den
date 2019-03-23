@@ -35,6 +35,7 @@ Model.new(:td_backup, 'Description for td_backup') do
     # Run the `tar` command using `sudo`
     # archive.use_sudo
     archive.add File.join(Rails.root, "public/system/")
+    archive.tar_options "-h --xattrs"
   end
 
   ##
