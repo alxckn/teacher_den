@@ -15,7 +15,7 @@ gem "pg", "~> 0.18"
 # Use Puma as the app server
 gem "puma", "~> 3.0"
 # Bootstrap : css framework
-gem "bootstrap-sass", "~> 3.3.6"
+gem "bootstrap-sass", "~> 3.4.1"
 # Fontawesome
 gem "font-awesome-rails"
 # Use SCSS for stylesheets
