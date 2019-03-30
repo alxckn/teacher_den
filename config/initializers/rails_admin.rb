@@ -54,4 +54,44 @@ RailsAdmin.config do |config|
 
     invite
   end
+
+  config.model "Document" do
+    list do
+      field :category do
+        pretty_value do
+          path = bindings[:view].show_path(model_name: "Category", id: value.id)
+          bindings[:view].content_tag(:a, value.displayable_name.titleize, href: path)
+        end
+      end
+      # field :file, :active_storage
+      field :file, :active_storage do
+        pretty_value do
+          path = Rails.application.routes.url_helpers.rails_blob_path(value, only_path: true)
+          bindings[:view].content_tag(
+            :a,
+            value.filename.to_s,
+            href: path,
+            target: "_blank"
+          )
+        end
+      end
+    end
+
+    edit do
+      field :category
+      field :file, :active_storage
+    end
+  end
+
+  config.model "Category" do
+    edit do
+      fields :label, :displayable_name
+    end
+  end
+
+  config.model "User" do
+    edit do
+      fields :email, :password, :admin
+    end
+  end
 end
