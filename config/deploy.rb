@@ -40,7 +40,7 @@ namespace :backup do
 
   desc "Downloads the last backup"
   task :download_last, :local_dir do |task, args|
-    args.with_defaults local_dir: "~/td_backups/"
+    args.with_defaults local_dir: "backups/"
     dir = "~/backups/td_backup/"
     pwd = nil
     last = nil
