@@ -68,21 +68,25 @@ Model.new(:td_backup, 'Description for td_backup') do
   compress_with Gzip
 
   after do |exit_status|
-    if Rails.configuration.try(:backup_with_rclone) && exit_status < 2 # complete success or success with warnings
+    callback_command = ENV["BACKUP_CALLBACK"]
+
+    if Rails.configuration.try(:backup_with_callback) && callback_command && exit_status < 2 # complete success or success with warnings
       Logger.info "Uploading backups to the cloud"
 
       backed_up_path = self.storages
                          .find { |s| s.send(:storage_name) == "Storage::Local" }
                          .send(:remote_path)
 
-      # execute rclone to sync to the cloud
-      command = "#{ENV["RCLONE_BIN_PATH"]} copy #{backed_up_path} #{ENV["RCLONE_REMOTE_NAME"]}:#{ENV["RCLONE_REMOTE_PATH"]}"
-      Logger.warn "Uploading using command: '#{command}'"
-      result = system command
+      # execute callback to sync to the cloud for instance
+      # `rclone copy %{backed_up_path} pcloud:td_backups/`
+      Logger.warn "Uploading using command: '#{callback_command}'"
+      result = system(callback_command % { backed_up_path: backed_up_path })
 
-      result ? Logger.info("Upload command successful") : Logger.error("Command execution failed")
+      result ? Logger.info("Callback command successful") : Logger.error("Command execution failed")
     else
-      Logger.warn "Not uploading to the cloud: Rails is not configured or there was a previous error in the backup process"
+      Logger.warn "Not running callback command: Rails is not configured or there was a previous error in the backup process"
+      Logger.warn "Make sure you configured a rclone command with environment variable 'BACKUP_CALLBACK'"
+      Logger.warn "Make sure backup callback is enabled within Rails config"
     end
   end
 end

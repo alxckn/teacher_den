@@ -65,7 +65,7 @@ Rails.application.configure do
   #   enable_starttls_auto: true
   # }
 
-  config.backup_with_rclone = true
+  config.backup_with_callback = true
 
   config.active_storage.service = :local
 end
