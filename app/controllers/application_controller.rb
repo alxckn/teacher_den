@@ -15,6 +15,6 @@ class ApplicationController < ActionController::Base
   end
 
   def markdown
-    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+    @markdown ||= Redcarpet::Markdown.new(ArticleRenderer, autolink: true, tables: true)
   end
 end

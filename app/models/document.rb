@@ -26,6 +26,10 @@ class Document < ApplicationRecord
 
   before_validation :set_category
 
+  def public?
+    self.category.public?
+  end
+
   private
 
   def set_category

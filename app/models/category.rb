@@ -18,6 +18,12 @@ class Category < ApplicationRecord
   before_validation :set_displayable_name
   validates_presence_of :label
 
+  PUBLIC_CATEGORIES = ["colles"].freeze
+
+  def public?
+    PUBLIC_CATEGORIES.include?(self.label)
+  end
+
   private
 
   def set_displayable_name

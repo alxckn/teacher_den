@@ -7,29 +7,7 @@ module Documentable
       documents
     end
 
-    def download
-      # Check download is enabled
-      # Checking the user is connected is done beforehand by the controller
-      category = document.category
-      if (self.class::CATEGORY_FILTERS.dig(:included) && !self.class::CATEGORY_FILTERS.dig(:included).include?(category.label)) ||
-         (self.class::CATEGORY_FILTERS.dig(:excluded) && self.class::CATEGORY_FILTERS.dig(:excluded).include?(category.label))
-        raise "This document download is not permitted"
-      end
-
-      document.with_lock do
-        document.downloads_count += 1
-        document.last_downloaded_at = Time.now.utc
-        document.save!
-      end
-
-      redirect_to rails_blob_path(document.file)
-    end
-
     private
-
-    def document
-      @document ||= Document.includes(:category).find params[:download_id]
-    end
 
     def documents
       @documents ||= begin

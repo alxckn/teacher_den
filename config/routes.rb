@@ -4,20 +4,18 @@ Rails.application.routes.draw do
 
   root "root#show"
 
-  resources :colles, only: [:index] do
+  resources :colles, only: [:index]
+
+  resources :documents, only: [] do
     collection do
-      get "download/:download_id", action: :download
+      get "download/:download_id", action: :download, as: :download
     end
   end
 
   namespace :user do
     resources :profile, only: [:index]
     resources :informations, only: [:index]
-    resources :downloads, only: [:index] do
-      collection do
-        get "download/:download_id", action: :download
-      end
-    end
+    resources :downloads, only: [:index]
   end
 
   namespace :api do
