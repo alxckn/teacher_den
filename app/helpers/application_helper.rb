@@ -10,4 +10,8 @@ module ApplicationHelper
     # orange, pink, purple, blue, green, red
     "body-orange"
   end
+
+  def custom_download_path(document_id)
+    url_for(action: "download", controller: controller_name, download_id: document_id)
+  end
 end

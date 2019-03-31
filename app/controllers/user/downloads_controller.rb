@@ -1,11 +1,9 @@
 class User::DownloadsController < User::UserController
-  def show
+  include Documentable
+
+  CATEGORY_FILTERS = { excluded: ["colles"] }.freeze
+
+  def index
     documents
-  end
-
-  private
-
-  def documents
-    @documents ||= Document.joins(:category).where.not(categories: { label: "colles" })
   end
 end

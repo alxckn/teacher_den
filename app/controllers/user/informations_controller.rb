@@ -1,5 +1,5 @@
-class User::InfoController < User::UserController
-  def show
+class User::InformationsController < User::UserController
+  def index
     articles
     markdown
   end

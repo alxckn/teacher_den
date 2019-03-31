@@ -35,7 +35,7 @@
                       <th scope="row"><%= document.id %></th>
                       <td><%= document.file.filename.to_s %></td>
                       <td><%= time_ago_in_words document.created_at %></td>
-                      <td><%= link_to "Télécharger", rails_blob_path(document.file), class: "btn btn-sm btn-default", target: "_blank" %></td>
+                      <td><%= link_to "Télécharger", custom_download_path(document.id), class: "btn btn-sm btn-default", target: "_blank" %></td>
                   </tr>
                   <% end %>
                 </tbody>

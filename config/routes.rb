@@ -1,15 +1,23 @@
 Rails.application.routes.draw do
   devise_for :users
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root "root#show"
-  get "/colles", to: "colles#show"
+
+  resources :colles, only: [:index] do
+    collection do
+      get "download/:download_id", action: :download
+    end
+  end
 
   namespace :user do
-    get "/profile", to: "profile#show"
-    get "/downloads", to: "downloads#show"
-    get "/informations", to: "info#show"
+    resources :profile, only: [:index]
+    resources :informations, only: [:index]
+    resources :downloads, only: [:index] do
+      collection do
+        get "download/:download_id", action: :download
+      end
+    end
   end
 
   namespace :api do

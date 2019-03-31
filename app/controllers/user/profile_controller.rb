@@ -1,5 +1,5 @@
 class User::ProfileController < User::UserController
-  def show
+  def index
     @user = current_user
   end
 end
