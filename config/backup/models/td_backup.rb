@@ -77,9 +77,11 @@ Model.new(:td_backup, 'Description for td_backup') do
                          .find { |s| s.send(:storage_name) == "Storage::Local" }
                          .send(:remote_path)
 
+      interpolation_vars = { backed_up_path: backed_up_path, time: self.time }
+
       # execute callback to sync to the cloud for instance
-      # `rclone copy %{backed_up_path} pcloud:td_backups/`
-      callback_command = callback_command % { backed_up_path: backed_up_path }
+      # `rclone copy %{backed_up_path} pcloud:td_backup/%{time}`
+      callback_command = callback_command % interpolation_vars
       Logger.info "Uploading using command: '#{callback_command}'"
       result = system(callback_command)
 
