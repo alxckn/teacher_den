@@ -79,8 +79,9 @@ Model.new(:td_backup, 'Description for td_backup') do
 
       # execute callback to sync to the cloud for instance
       # `rclone copy %{backed_up_path} pcloud:td_backups/`
-      Logger.warn "Uploading using command: '#{callback_command}'"
-      result = system(callback_command % { backed_up_path: backed_up_path })
+      callback_command = callback_command % { backed_up_path: backed_up_path }
+      Logger.info "Uploading using command: '#{callback_command}'"
+      result = system(callback_command)
 
       result ? Logger.info("Callback command successful") : Logger.error("Command execution failed")
     else
