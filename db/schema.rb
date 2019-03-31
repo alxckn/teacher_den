@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_30_150843) do
+ActiveRecord::Schema.define(version: 2019_03_31_171808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,8 @@ ActiveRecord::Schema.define(version: 2019_03_30_150843) do
     t.datetime "file_updated_at"
     t.string "token"
     t.integer "category_id"
+    t.integer "downloads_count", default: 0
+    t.datetime "last_downloaded_at"
   end
 
   create_table "global_vars", id: :serial, force: :cascade do |t|

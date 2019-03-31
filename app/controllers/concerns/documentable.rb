@@ -16,6 +16,12 @@ module Documentable
         raise "This document download is not permitted"
       end
 
+      document.with_lock do
+        document.downloads_count += 1
+        document.last_downloaded_at = Time.now.utc
+        document.save!
+      end
+
       redirect_to rails_blob_path(document.file)
     end
 

@@ -75,6 +75,9 @@ RailsAdmin.config do |config|
           )
         end
       end
+
+      field :downloads_count
+      field :last_downloaded_at
     end
 
     edit do
