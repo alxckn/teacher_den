@@ -55,15 +55,23 @@ Rails.application.configure do
   #Devise
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-  # ActionMailer::Base.smtp_settings = {
-  #   user_name: ENV["SENDGRID_USERNAME"],
-  #   password: ENV["SENDGRID_PASSWORD"],
-  #   domain: "em1678.mail.chakroun.eu",
-  #   address: "smtp.sendgrid.net",
-  #   port: 587,
-  #   authentication: :plain,
-  #   enable_starttls_auto: true
-  # }
+  if ENV["ENABLE_DEV_EMAILS"] == "true"
+    ActionMailer::Base.smtp_settings = {
+      user_name: ENV["SENDGRID_USERNAME"],
+      password: ENV["SENDGRID_PASSWORD"],
+      domain: "em1678.mail.chakroun.eu",
+      address: "smtp.sendgrid.net",
+      port: 587,
+      authentication: :plain,
+      enable_starttls_auto: true
+    }
+  end
+  class SandboxEmailInterceptor
+    def self.delivering_email(message)
+      message.to = [ENV["DEVELOPER_EMAIL"]]
+    end
+  end
+  ActionMailer::Base.register_interceptor(SandboxEmailInterceptor)
 
   config.backup_with_callback = true
 
