@@ -8,12 +8,12 @@ end
 ruby "~> 2.6"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
-gem "rails", "~> 5.2.2"
+gem "rails", "~> 5.2.4"
 gem "bootsnap", require: false
 # Use postgresql as the database for Active Record
 gem "pg", "~> 0.18"
 # Use Puma as the app server
-gem "puma", "~> 3.0"
+gem "puma", "~> 4.0"
 # Bootstrap : css framework
 gem "bootstrap-sass", "~> 3.4.1"
 # Fontawesome
@@ -61,7 +61,7 @@ gem "dotenv-rails"
 gem "rest-client"
 
 # Backup files and database
-gem "backup", git: "https://github.com/backup/backup.git"
+# gem "backup", git: "https://github.com/backup/backup.git"
 
 # Background and reccurent
 gem "whenever", require: false
