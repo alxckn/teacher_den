@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+
+  app:
+    # image: docker.pkg.github.com/alxckn/teacher_den/rails:latest
+    image: teacher_den
+    ports:
+      - 3000:3000
+    links:
+      - pg
+    environment:
+      RAILS_ENV: production
+      DATABASE_URL: postgres://postgres:postgres@pg/teacher_den_production
+      SECRET_KEY_BASE: lalallal
+
+  pg:
+    image: postgres:11.5
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  # web:
+  #   build:
+  #     context: .
+  #     dockerfile: ./nginx/Dockerfile
+  #   command: server
+  #   ports:
+  #     - 80:80
+
