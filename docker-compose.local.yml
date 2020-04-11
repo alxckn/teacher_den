@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+
+  app:
+    ports:
+      - 3000:3000
+    links:
+      - pg
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@pg/teacher_den_production
+
+  pg:
+    image: postgres:11.5
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./data/pg:/var/lib/postgresql/data

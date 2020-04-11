@@ -7,6 +7,7 @@ ENV ACTIVE_STORAGE_SERVICE local
 # Make sure the asset host is not present in compiled assets
 ENV APP_HOST ""
 ENV ASSET_HOST ""
+ENV SECRET_KEY_BASE "S"
 
 # Install node and yarn
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
@@ -14,8 +15,7 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get update -qq && apt-get install -y --no-install-recommends nodejs yarn
 
-RUN mkdir /app && \
-    mkdir -p /app/gems/recommendation_report
+RUN mkdir /app
 WORKDIR /app
 
 COPY Gemfile /app/Gemfile
@@ -25,7 +25,7 @@ RUN gem install bundler --no-document && bundle install --without development te
 
 COPY . /app
 
-# RUN bundle exec rails assets:precompile
+RUN bundle exec rails assets:precompile
 
 FROM ruby:2.6.5-buster
 

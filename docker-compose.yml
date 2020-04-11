@@ -2,29 +2,21 @@ version: '3.4'
 
 services:
 
-  app:
-    # image: docker.pkg.github.com/alxckn/teacher_den/rails:latest
-    image: teacher_den
+  web:
+    image: docker.pkg.github.com/alxckn/teacher_den/nginx:latest
     ports:
-      - 3000:3000
+      - 8080:8080
     links:
-      - pg
+      - app
+
+  app:
+    image: docker.pkg.github.com/alxckn/teacher_den/rails:latest
+    volumes:
+      - ./data/rails_documents:/app/public/system
     environment:
-      RAILS_ENV: production
-      DATABASE_URL: postgres://postgres:postgres@pg/teacher_den_production
-      SECRET_KEY_BASE: lalallal
-
-  pg:
-    image: postgres:11.5
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-
-  # web:
-  #   build:
-  #     context: .
-  #     dockerfile: ./nginx/Dockerfile
-  #   command: server
-  #   ports:
-  #     - 80:80
-
+      - RAILS_ENV=production
+      - RAILS_LOG_TO_STDOUT="true"
+      - DATABASE_URL
+      - SECRET_KEY_BASE
+      - SENDGRID_USERNAME
+      - SENDGRID_PASSWORD
