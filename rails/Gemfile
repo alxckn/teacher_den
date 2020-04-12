@@ -61,7 +61,7 @@ gem "dotenv-rails"
 gem "rest-client"
 
 # Backup files and database
-gem "backup", git: "https://github.com/backup/backup.git"
+# gem "backup", git: "https://github.com/backup/backup.git"
 
 # Background and reccurent
 gem "whenever", require: false
