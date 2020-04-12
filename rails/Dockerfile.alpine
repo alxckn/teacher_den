@@ -1,0 +1,53 @@
+FROM ruby:2.6.6-alpine3.11 AS base
+
+ARG environment=production
+ARG BUILD_PACKAGES="build-base linux-headers icu-dev git"
+ARG RUBY_PACKAGES="postgresql-dev tzdata nodejs"
+
+ENV RAILS_ENV $environment
+ENV NODE_ENV production
+ENV ACTIVE_STORAGE_SERVICE local
+# Make sure the asset host is not present in compiled assets
+ENV APP_HOST ""
+ENV ASSET_HOST ""
+ENV SECRET_KEY_BASE "S"
+
+# Minimal requirements to run a Rails app
+RUN apk update \
+    && apk upgrade \
+    && apk add --update --no-cache $RUBY_PACKAGES $BUILD_PACKAGES
+
+RUN mkdir /app
+WORKDIR /app
+
+############### Base done ###############
+
+FROM base AS build-env
+
+COPY Gemfile* /app/
+RUN gem install bundler --no-document \
+    && bundle config --global frozen 1 \
+    && bundle install \
+      --without development test \
+      --deployment \
+      --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` \
+      --retry 3 \
+    # Remove unneeded files (cached *.gem, *.o, *.c)
+    && rm -rf vendor/bundle/ruby/2.6.0/cache/*.gem \
+    && find vendor/bundle/ruby/2.6.0/gems/ -name "*.c" -delete \
+    && find vendor/bundle/ruby/2.6.0/gems/ -name "*.o" -delete
+
+COPY . /app
+RUN bundle exec rails assets:precompile
+
+############### Build step done ###############
+
+FROM base
+
+COPY --from=build-env /app /app
+RUN bundle install --without development test --deployment
+
+EXPOSE 3000
+
+# Start the main process.
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
