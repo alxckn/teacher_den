@@ -1,8 +1,7 @@
 FROM ruby:2.6.6-alpine3.11 AS base
 
 ARG environment=production
-ARG BUILD_PACKAGES="build-base linux-headers icu-dev git"
-ARG RUBY_PACKAGES="postgresql-dev tzdata nodejs"
+ARG RUBY_PACKAGES="tzdata nodejs"
 
 ENV RAILS_ENV $environment
 ENV NODE_ENV production
@@ -12,17 +11,28 @@ ENV APP_HOST ""
 ENV ASSET_HOST ""
 ENV SECRET_KEY_BASE "S"
 
-# Minimal requirements to run a Rails app
-RUN apk update \
-    && apk upgrade \
-    && apk add --update --no-cache $RUBY_PACKAGES $BUILD_PACKAGES
-
 RUN mkdir /app
 WORKDIR /app
 
+# Minimal requirements to run a Rails app
+RUN apk update \
+    && apk upgrade \
+    && apk add --update --no-cache $RUBY_PACKAGES
+
 ############### Base done ###############
 
-FROM base AS build-env
+FROM base AS base-build
+
+ARG BUILD_PACKAGES="build-base linux-headers icu-dev git postgresql-dev"
+
+# Minimal requirements to run a Rails app
+RUN apk update \
+    && apk upgrade \
+    && apk add --update --no-cache $BUILD_PACKAGES
+
+############### Base build done ###############
+
+FROM base-build AS rails-build-env
 
 COPY Gemfile* /app/
 RUN gem install bundler --no-document \
@@ -40,11 +50,17 @@ RUN gem install bundler --no-document \
 COPY . /app
 RUN bundle exec rails assets:precompile
 
-############### Build step done ###############
+############### Rails build step done ###############
+
+FROM base-build as upload_doc
+
+RUN gem install rest-client --no-document
+
+############### Upload Doc done ###############
 
 FROM base
 
-COPY --from=build-env /app /app
+COPY --from=rails-build-env /app /app
 RUN bundle install --without development test --deployment
 
 EXPOSE 3000

@@ -41,9 +41,6 @@ gem "jbuilder", "~> 2.5"
 # Authentication
 gem "devise"
 
-# Annotate models
-gem "annotate"
-
 # markdown
 gem "redcarpet"
 
@@ -55,7 +52,7 @@ gem "rails_admin_import", "~> 2.0"
 gem "paperclip", "~> 5.2.0"
 
 # Environment
-gem "dotenv-rails"
+# gem "dotenv-rails"
 
 # Api queries
 gem "rest-client"
@@ -64,11 +61,13 @@ gem "rest-client"
 # gem "backup", git: "https://github.com/backup/backup.git"
 
 # Background and reccurent
-gem "whenever", require: false
+# gem "whenever", require: false
 
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
   gem "byebug", platform: :mri
+  # Annotate models
+  gem "annotate"
 end
 
 group :development do
