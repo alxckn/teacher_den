@@ -12,6 +12,7 @@ optparse = OptionParser.new do |opts|
   opts.on('-f', '--file FILEPATH', 'File path') { |v| options[:file] = v }
   opts.on('-u', '--username USERNAME', 'Username') { |v| options[:username] = v }
   opts.on('-p', '--password PASSWORD', 'Password') { |v| options[:password] = v }
+  opts.on('-n', '--note NOTE', 'Note') { |v| options[:note] = v }
 
   opts.on('-h', '--help', 'Help') do
     puts opts
@@ -41,7 +42,8 @@ response = RestClient::Request.new(
   payload: {
     document: {
       category_label: options[:category],
-      file: File.new(options[:file])
+      file: File.new(options[:file]),
+      note: options[:note]
     }
   }
 ).execute do |response, request, result|

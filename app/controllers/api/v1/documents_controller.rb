@@ -23,6 +23,6 @@ class Api::V1::DocumentsController < ApplicationController
   end
 
   def documents_params
-    params.require(:document).permit(:category_label, :category_id, :file)
+    params.require(:document).permit(:category_label, :category_id, :file, :note)
   end
 end
