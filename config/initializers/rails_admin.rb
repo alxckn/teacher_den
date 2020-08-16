@@ -76,6 +76,7 @@ RailsAdmin.config do |config|
         end
       end
 
+      field :note
       field :downloads_count
       field :last_downloaded_at
     end
@@ -83,6 +84,7 @@ RailsAdmin.config do |config|
     edit do
       field :category
       field :file, :active_storage
+      field :note
     end
   end
 
