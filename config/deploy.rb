@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.11.0"
+lock "~> 3.13.0"
 
 set :application, "teacher_den"
 set :repo_url, "https://github.com/alxckn/teacher_den.git"
