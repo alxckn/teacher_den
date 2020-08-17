@@ -13,7 +13,7 @@ gem "bootsnap", require: false
 # Use postgresql as the database for Active Record
 gem "pg", "~> 0.18"
 # Use Puma as the app server
-gem "puma", "~> 4.0"
+gem "puma", "~> 4.3"
 # Bootstrap : css framework
 gem "bootstrap-sass", "~> 3.4.1"
 # Fontawesome
