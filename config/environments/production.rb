@@ -92,11 +92,12 @@ Rails.application.configure do
     #password: ENV["SENDGRID_PASSWORD"],
     #domain: "em1678.mail.chakroun.eu",
     #address: "smtp.sendgrid.net",
+    #port: 587,
     user_name: ENV["ACGRENOBLE_USERNAME"],
     password: ENV["ACGRENOBLE_PASSWORD"],
     domain: "",
-    address: "smtps.ac-grenoble.fr", 
-    port: 587,
+    address: "smtp.ac-grenoble.fr", 
+    port: 465,
     authentication: :plain,
     enable_starttls_auto: true
   }
