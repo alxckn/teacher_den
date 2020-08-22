@@ -85,7 +85,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   #Devise
-  config.action_mailer.default_url_options = { host: 'sami.chakroun.eu' }
+  #config.action_mailer.default_url_options = { host: 'sami.chakroun.eu' }
 
   ActionMailer::Base.smtp_settings = {
     #user_name: ENV["SENDGRID_USERNAME"],
@@ -95,12 +95,12 @@ Rails.application.configure do
     #port: 587,
     user_name: ENV["ACGRENOBLE_USERNAME"],
     password: ENV["ACGRENOBLE_PASSWORD"],
-    domain: "",
+    #domain: "",
     address: "smtp.ac-grenoble.fr", 
     port: 465,
-    authentication: :plain,
+    authentication: plain,
     enable_starttls_auto: true,
-    ssl/:tls
+    ssl: true
 
   }
 
