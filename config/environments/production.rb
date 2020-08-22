@@ -98,10 +98,9 @@ Rails.application.configure do
     #domain: "",
     address: "smtp.ac-grenoble.fr", 
     port: 465,
-    authentication: plain,
+    authentication: 'plain',
     enable_starttls_auto: true,
     ssl: true
-
   }
 
   config.backup_with_callback = true
