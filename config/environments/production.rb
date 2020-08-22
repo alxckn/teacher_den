@@ -85,22 +85,23 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   #Devise
-  #config.action_mailer.default_url_options = { host: 'sami.chakroun.eu' }
+  config.action_mailer.default_url_options = { host: 'sami.chakroun.eu' }
 
   ActionMailer::Base.smtp_settings = {
-    #user_name: ENV["SENDGRID_USERNAME"],
-    #password: ENV["SENDGRID_PASSWORD"],
-    #domain: "em1678.mail.chakroun.eu",
-    #address: "smtp.sendgrid.net",
-    #port: 587,
-    user_name: ENV["ACGRENOBLE_USERNAME"],
-    password: ENV["ACGRENOBLE_PASSWORD"],
-    #domain: "",
-    address: "smtp.ac-grenoble.fr", 
-    port: 465,
-    authentication: 'plain',
+    user_name: ENV["SENDGRID_USERNAME"],
+    password: ENV["SENDGRID_PASSWORD"],
+    domain: "em1678.mail.chakroun.eu",
+    address: "smtp.sendgrid.net",
+    port: 587,
     enable_starttls_auto: true,
-    ssl: true
+    authentication: 'plain'
+    #user_name: ENV["ACGRENOBLE_USERNAME"],
+    #password: ENV["ACGRENOBLE_PASSWORD"],
+    #domain: "",
+    #address: "smtp.ac-grenoble.fr", 
+    #port: 465,
+    
+    #tls: true
   }
 
   config.backup_with_callback = true
