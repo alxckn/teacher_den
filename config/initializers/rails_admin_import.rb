@@ -19,6 +19,7 @@ RailsAdmin.config do |config|
   config.model 'User' do
     import do
       field :email
+      field :password
     end
   end
 end

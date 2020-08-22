@@ -27,7 +27,7 @@ class User < ApplicationRecord
   attr_accessor :no_password
 
   def before_import_save(record)
-    self.no_password = true
+    self.no_password = false
   end
 
   private
