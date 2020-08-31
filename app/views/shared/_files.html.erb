@@ -23,7 +23,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <!--<th>#</th>-->
                         <th>Fichier</th>
                         <th>Commentaire</th>
                         <th>Date de mise en ligne</th>
@@ -33,7 +33,7 @@
                 <tbody>
                   <% documents.each do |document| %>
                     <tr>
-                      <th scope="row"><%= document.id %></th>
+                      <!--<th scope="row"><%= document.id %></th>-->
                       <td><%= document.file.filename.to_s %></td>
                       <td><%= simple_format document.note %></td>
                       <td><%= time_ago_in_words document.created_at %></td>
